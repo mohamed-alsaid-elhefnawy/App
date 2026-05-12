@@ -14,78 +14,180 @@
         <header>
             <div class="logo">LUMORA.OS</div>
             <div class="header-actions">
-                <div class="icon-btn" id="notif-btn">
-                    <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
-                </div>
                 <img src="avatar.png" alt="Profile" class="profile-avatar">
             </div>
         </header>
 
-        <!-- Main Status Card -->
-        <section class="status-section">
-            <div class="status-card">
-                <h2>System Online</h2>
-                <div class="welcome-text">Welcome back, Agent</div>
-                <div class="date-text" id="current-date">May 12, 2026 | 17:40</div>
-            </div>
-        </section>
+        <!-- Pages Container -->
+        <main class="content-area">
+            <!-- Home Page -->
+            <div id="home-page" class="page active">
+                <section class="status-section">
+                    <div class="status-card">
+                        <h2>System Online</h2>
+                        <div class="welcome-text">Welcome back, Agent</div>
 
-        <!-- Task Input -->
-        <section class="task-input-section">
-            <div class="input-wrapper">
-                <input type="text" id="task-input" placeholder="New objective..." autocomplete="off">
-            </div>
-            <button class="add-btn" id="add-task">
-                <i data-lucide="plus"></i>
-            </button>
-        </section>
+                    </div>
+                </section>
 
-        <!-- Productivity Stats -->
-        <section class="stats-section">
-            <div class="stat-card progress-card">
-                <div class="progress-ring">
-                    <svg width="40" height="40">
-                        <circle cx="20" cy="20" r="16" stroke="rgba(255,255,255,0.1)" stroke-width="4" fill="transparent" />
-                        <circle id="progress-circle" cx="20" cy="20" r="16" stroke="var(--primary-cyan)" stroke-width="4" fill="transparent" 
-                            stroke-dasharray="100" stroke-dashoffset="100" stroke-linecap="round" />
-                    </svg>
-                    <span class="progress-text">0%</span>
-                </div>
-                <div class="stat-label">System Progress</div>
+                <section class="calendar-section">
+                    <div class="calendar-header">
+                        <div class="month-nav">
+                            <button id="prev-month"><i data-lucide="chevron-left"></i></button>
+                            <h3 id="current-month-display">MAY 2026</h3>
+                            <button id="next-month"><i data-lucide="chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-indicator" id="live-clock">00:00:00</div>
+                    </div>
+                    <div class="days-container" id="days-container">
+                        <!-- Days will be injected by JS -->
+                    </div>
+                </section>
+                
+                <section class="home-widgets">
+                    <div class="widget-grid">
+                        <div class="mini-card">
+                            <i data-lucide="list-todo" style="color: var(--primary-cyan)"></i>
+                            <span>Tasks: <span id="daily-task-count">0</span></span>
+                        </div>
+                        <div class="mini-card">
+                            <i data-lucide="trending-up" style="color: var(--secondary-purple)"></i>
+                            <span>Progress: <span id="daily-task-progress">0%</span></span>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
 
-        <!-- Task List -->
-        <section class="task-list-section">
-            <div class="section-title">
-                <span>ACTIVE TASKS</span>
-                <i data-lucide="filter" style="width: 16px; height: 16px; cursor: pointer;"></i>
+            <!-- Task Page -->
+            <div id="task-page" class="page">
+                <section class="task-input-section">
+                    <div class="input-wrapper">
+                        <input type="text" id="task-input" placeholder="New objective..." autocomplete="off">
+                    </div>
+                    <button class="add-btn" id="add-task">
+                        <i data-lucide="plus"></i>
+                    </button>
+                </section>
+
+                <section class="task-list-section">
+                    <div class="section-title">
+                        <span>ACTIVE TASKS</span>
+                        <i data-lucide="filter" style="width: 16px; height: 16px; cursor: pointer;"></i>
+                    </div>
+                    <div id="task-list">
+                        <div id="empty-state" style="text-align: center; padding: 40px 20px; color: var(--text-dim);">
+                            <i data-lucide="shield-off" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
+                            <p style="font-size: 0.9rem; letter-spacing: 1px;">NO ACTIVE OBJECTIVES</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div id="task-list">
-                <!-- Empty State -->
-                <div id="empty-state" style="text-align: center; padding: 40px 20px; color: var(--text-dim);">
-                    <i data-lucide="shield-off" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
-                    <p style="font-size: 0.9rem; letter-spacing: 1px;">NO ACTIVE OBJECTIVES</p>
-                </div>
+
+            <!-- Timer Page -->
+            <div id="timer-page" class="page">
+                <section class="timer-section">
+                    <!-- Focus Timer -->
+                    <div class="timer-unit">
+                        <div class="unit-title">FOCUS SESSION</div>
+                        <div class="timer-card" id="focus-card">
+                            <div class="timer-display" id="focus-display">25:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn primary" onclick="toggleTimer('focus')"><i data-lucide="play" id="focus-icon"></i></button>
+                                <button class="timer-btn" onclick="resetTimer('focus')"><i data-lucide="rotate-ccw"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rest Timer -->
+                    <div class="timer-unit">
+                        <div class="unit-title">REST BREAK</div>
+                        <div class="timer-card" id="rest-card">
+                            <div class="timer-display" id="rest-display">05:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn primary" onclick="toggleTimer('rest')"><i data-lucide="play" id="rest-icon"></i></button>
+                                <button class="timer-btn" onclick="resetTimer('rest')"><i data-lucide="rotate-ccw"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
+
+            <!-- Analysis Page -->
+            <div id="analysis-page" class="page">
+                <section class="stats-section">
+                    <div class="daily-analysis-card">
+                        <div class="card-header">DAILY ANALYSIS</div>
+                        <div class="stat-row">
+                            <div class="stat-label">Overall Completion</div>
+                            <div class="progress-ring">
+                                <svg width="56" height="56">
+                                    <circle cx="28" cy="28" r="24" stroke="rgba(255,255,255,0.1)" stroke-width="5" fill="transparent" />
+                                    <circle id="progress-circle" cx="28" cy="28" r="24" stroke="var(--primary-cyan)" stroke-width="5" fill="transparent" 
+                                        stroke-dasharray="150" stroke-dashoffset="150" stroke-linecap="round" />
+                                </svg>
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-label">Daily Average</div>
+                            <div id="daily-avg-value" class="stat-value">0.00</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings-page" class="page">
+                <section class="settings-section">
+                    <div class="settings-group">
+                        <h3>General</h3>
+                        <div class="settings-item">
+                            <span>Appearance</span>
+                            <div class="theme-selector">
+                                <button class="theme-btn active" id="dark-theme-btn">
+                                    <i data-lucide="moon"></i> Dark
+                                </button>
+                                <button class="theme-btn" id="light-theme-btn">
+                                    <i data-lucide="sun"></i> Light
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Developer Credits -->
+                    <div class="settings-group developer-credits">
+                        <h3>System Architect</h3>
+                        <div class="credit-card glass-morphism">
+                            <div class="credit-text">El-Hefnawy Technology</div>
+                            <div class="credit-badge">Lead Developer</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
 
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item active">
                 <i data-lucide="home"></i>
+                <span class="nav-label">Home</span>
             </div>
             <div class="nav-item">
                 <i data-lucide="list-todo"></i>
+                <span class="nav-label">Task</span>
             </div>
             <div class="nav-item">
                 <i data-lucide="timer"></i>
+                <span class="nav-label">Timer</span>
             </div>
             <div class="nav-item">
                 <i data-lucide="bar-chart-3"></i>
+                <span class="nav-label">Analysis</span>
             </div>
             <div class="nav-item">
                 <i data-lucide="settings"></i>
+                <span class="nav-label">Settings</span>
             </div>
         </nav>
     </div>
@@ -94,14 +196,20 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Update Date/Time
-        function updateDateTime() {
-            const now = new Date();
-            const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('current-date').innerText = now.toLocaleString('en-US', options).replace(',', ' |');
+        // Live Clock System
+        function updateLiveClock() {
+            const clock = document.getElementById('live-clock');
+            if (clock) {
+                const now = new Date();
+                clock.innerText = now.toLocaleTimeString('en-US', { 
+                    hour12: true, 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            }
         }
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
 
         // Task Management
         const taskInput = document.getElementById('task-input');
@@ -117,8 +225,15 @@
             const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
             progressText.innerText = `${percentage}%`;
             
-            // stroke-dasharray is 100
-            const offset = 100 - percentage;
+            // Update Home Widgets
+            const dailyCount = document.getElementById('daily-task-count');
+            if (dailyCount) dailyCount.innerText = totalTasks;
+
+            const dailyProgress = document.getElementById('daily-task-progress');
+            if (dailyProgress) dailyProgress.innerText = `${percentage}%`;
+            
+            // stroke-dasharray is 150
+            const offset = 150 - (percentage / 100) * 150;
             progressCircle.style.strokeDashoffset = offset;
         }
 
@@ -213,22 +328,236 @@
             }
         });
 
+        // Theme Switching
+        const darkBtn = document.getElementById('dark-theme-btn');
+        const lightBtn = document.getElementById('light-theme-btn');
+
+        darkBtn.addEventListener('click', () => {
+            document.documentElement.classList.remove('light-mode');
+            darkBtn.classList.add('active');
+            lightBtn.classList.remove('active');
+            lucide.createIcons();
+        });
+
+        lightBtn.addEventListener('click', () => {
+            document.documentElement.classList.add('light-mode');
+            lightBtn.classList.add('active');
+            darkBtn.classList.remove('active');
+            lucide.createIcons();
+        });
+
         // Initialize progress
         updateProgress();
 
-        // Navigation Switching
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+        // Settings Toggles
+        const toggles = document.querySelectorAll('.toggle');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
             });
         });
 
-        // Notification Button Ripple Simulation
-        document.getElementById('notif-btn').addEventListener('click', () => {
-            alert('Security Alerts: All Systems Optimal.');
+        // --- DYNAMIC CALENDAR SYSTEM ---
+        let displayDate = new Date();
+
+        function generateCalendar() {
+            const container = document.getElementById('days-container');
+            const monthDisplay = document.getElementById('current-month-display');
+            const year = displayDate.getFullYear();
+            const month = displayDate.getMonth();
+            const today = new Date();
+            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+
+            const monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+                              "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+            
+            monthDisplay.innerText = `${monthNames[month]} ${year}`;
+
+            // Get number of days in displayed month
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            container.innerHTML = '';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day-item';
+                if (isCurrentMonth && i === today.getDate()) dayDiv.classList.add('today');
+                
+                const d = new Date(year, month, i);
+                const dayName = d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+
+                dayDiv.innerHTML = `
+                    <span class="day-name">${dayName}</span>
+                    <span class="day-num">${i}</span>
+                `;
+                container.appendChild(dayDiv);
+                
+                // Auto-scroll to today if current month
+                if (isCurrentMonth && i === today.getDate()) {
+                    setTimeout(() => {
+                        dayDiv.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }, 500);
+                }
+            }
+            lucide.createIcons();
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            displayDate.setMonth(displayDate.getMonth() - 1);
+            generateCalendar();
         });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            displayDate.setMonth(displayDate.getMonth() + 1);
+            generateCalendar();
+        });
+
+        generateCalendar();
+
+        // Navigation Switching
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                // Update nav UI
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Switch pages
+                const pageId = item.querySelector('.nav-label').innerText.toLowerCase() + '-page';
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === pageId) {
+                        page.classList.add('active');
+                    }
+                });
+                
+                // Scroll to top on page change
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Re-run Lucide icons
+                lucide.createIcons();
+            });
+        });
+
+        // Timer Logic
+        let totalSecondsWorked = 0;
+
+        // Neural Sound System (Web Audio API)
+        const NeuralAudio = {
+            ctx: null,
+            init() {
+                if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            },
+            playStart() {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(110, this.ctx.currentTime + 0.5);
+                gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.5);
+            },
+            playComplete() {
+                this.init();
+                const now = this.ctx.currentTime;
+                const freqs = [440, 554.37, 659.25, 880]; // A major chord
+                freqs.forEach((f, i) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now + i * 0.1);
+                    gain.gain.setValueAtTime(0.1, now + i * 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + i * 0.1);
+                    osc.stop(now + i * 0.1 + 0.3);
+                });
+            }
+        };
+
+        const timers = {
+            focus: {
+                timeLeft: 25 * 60,
+                interval: null,
+                isRunning: false,
+                display: document.getElementById('focus-display'),
+                card: document.getElementById('focus-card'),
+                icon: document.getElementById('focus-icon'),
+                defaultTime: 25 * 60
+            },
+            rest: {
+                timeLeft: 5 * 60,
+                interval: null,
+                isRunning: false,
+                display: document.getElementById('rest-display'),
+                card: document.getElementById('rest-card'),
+                icon: document.getElementById('rest-icon'),
+                defaultTime: 5 * 60
+            }
+        };
+
+        function updateDailyAvg() {
+            const hours = (totalSecondsWorked / 3600).toFixed(2);
+            document.getElementById('daily-avg-value').innerText = `${hours}`;
+        }
+
+        function updateTimerUI(type) {
+            const t = timers[type];
+            const minutes = Math.floor(t.timeLeft / 60);
+            const seconds = t.timeLeft % 60;
+            t.display.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer(type) {
+            const t = timers[type];
+            if (t.isRunning) {
+                clearInterval(t.interval);
+                t.isRunning = false;
+                t.icon.setAttribute('data-lucide', 'play');
+                t.card.classList.remove('active');
+            } else {
+                NeuralAudio.playStart();
+                t.isRunning = true;
+                t.icon.setAttribute('data-lucide', 'pause');
+                t.card.classList.add('active');
+                
+                t.interval = setInterval(() => {
+                    t.timeLeft--;
+                    totalSecondsWorked++;
+                    updateTimerUI(type);
+                    updateDailyAvg();
+                    
+                    if (t.timeLeft <= 0) {
+                        clearInterval(t.interval);
+                        t.isRunning = false;
+                        t.icon.setAttribute('data-lucide', 'play');
+                        t.card.classList.remove('active');
+                        NeuralAudio.playComplete();
+                        alert(`${type.toUpperCase()} SESSION COMPLETE`);
+                    }
+                }, 1000);
+            }
+            lucide.createIcons();
+        }
+
+        function resetTimer(type) {
+            const t = timers[type];
+            clearInterval(t.interval);
+            t.isRunning = false;
+            t.timeLeft = t.defaultTime;
+            updateTimerUI(type);
+            t.icon.setAttribute('data-lucide', 'play');
+            t.card.classList.remove('active');
+            lucide.createIcons();
+        }
+
     </script>
 </body>
 </html>
