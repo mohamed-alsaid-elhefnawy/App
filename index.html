@@ -9,10 +9,27 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <!-- Futuristic Loading Matrix -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="dot-matrix-loader">
+            <div class="matrix-grid" id="matrix-grid"></div>
+            <div class="loader-text">LUMORA.OS INITIALIZING</div>
+        </div>
+    </div>
+
     <div class="app-container">
         <!-- Top Header -->
-        <header>
-            <div class="logo">LUMORA.OS</div>
+        <header class="glass-shimmer">
+            <div class="logo">
+                <div class="app-icon-mini">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+                LUMORA.OS
+            </div>
             <div class="header-actions">
                 <img src="avatar.png" alt="Profile" class="profile-avatar">
             </div>
@@ -21,21 +38,20 @@
         <!-- Pages Container -->
         <main class="content-area">
             <!-- Home Page -->
-            <div id="home-page" class="page active">
-                <section class="status-section">
-                    <div class="status-card">
+            <div id="home-page" class="page">
+                <section class="status-section staggered-item">
+                    <div class="status-card glass-shimmer">
                         <h2>System Online</h2>
                         <div class="welcome-text">Welcome back, Agent</div>
-
                     </div>
                 </section>
 
-                <section class="calendar-section">
+                <section class="calendar-section staggered-item">
                     <div class="calendar-header">
                         <div class="month-nav">
-                            <button id="prev-month"><i data-lucide="chevron-left"></i></button>
+                            <button id="prev-month" class="icon-btn"><i data-lucide="chevron-left"></i></button>
                             <h3 id="current-month-display">MAY 2026</h3>
-                            <button id="next-month"><i data-lucide="chevron-right"></i></button>
+                            <button id="next-month" class="icon-btn"><i data-lucide="chevron-right"></i></button>
                         </div>
                         <div class="calendar-indicator" id="live-clock">00:00:00</div>
                     </div>
@@ -44,13 +60,13 @@
                     </div>
                 </section>
                 
-                <section class="home-widgets">
+                <section class="home-widgets staggered-item">
                     <div class="widget-grid">
-                        <div class="mini-card">
+                        <div class="mini-card glass-shimmer">
                             <i data-lucide="list-todo" style="color: var(--primary-cyan)"></i>
                             <span>Tasks: <span id="daily-task-count">0</span></span>
                         </div>
-                        <div class="mini-card">
+                        <div class="mini-card glass-shimmer">
                             <i data-lucide="trending-up" style="color: var(--secondary-purple)"></i>
                             <span>Progress: <span id="daily-task-progress">0%</span></span>
                         </div>
@@ -59,8 +75,8 @@
             </div>
 
             <!-- Task Page -->
-            <div id="task-page" class="page">
-                <section class="task-input-section">
+            <div id="task-page" class="page active">
+                <section class="task-input-section staggered-item">
                     <div class="input-wrapper">
                         <input type="text" id="task-input" placeholder="New objective..." autocomplete="off">
                     </div>
@@ -69,16 +85,13 @@
                     </button>
                 </section>
 
-                <section class="task-list-section">
+                <section class="task-list-section staggered-item">
                     <div class="section-title">
                         <span>ACTIVE TASKS</span>
                         <i data-lucide="filter" style="width: 16px; height: 16px; cursor: pointer;"></i>
                     </div>
                     <div id="task-list">
-                        <div id="empty-state" style="text-align: center; padding: 40px 20px; color: var(--text-dim);">
-                            <i data-lucide="shield-off" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
-                            <p style="font-size: 0.9rem; letter-spacing: 1px;">NO ACTIVE OBJECTIVES</p>
-                        </div>
+                        <!-- Empty state or tasks -->
                     </div>
                 </section>
             </div>
@@ -86,10 +99,9 @@
             <!-- Timer Page -->
             <div id="timer-page" class="page">
                 <section class="timer-section">
-                    <!-- Focus Timer -->
-                    <div class="timer-unit">
+                    <div class="timer-unit staggered-item">
                         <div class="unit-title">FOCUS SESSION</div>
-                        <div class="timer-card" id="focus-card">
+                        <div class="timer-card glass-shimmer" id="focus-card">
                             <div class="timer-display" id="focus-display">25:00</div>
                             <div class="timer-controls">
                                 <button class="timer-btn primary" onclick="toggleTimer('focus')"><i data-lucide="play" id="focus-icon"></i></button>
@@ -98,10 +110,9 @@
                         </div>
                     </div>
 
-                    <!-- Rest Timer -->
-                    <div class="timer-unit">
+                    <div class="timer-unit staggered-item">
                         <div class="unit-title">REST BREAK</div>
-                        <div class="timer-card" id="rest-card">
+                        <div class="timer-card glass-shimmer" id="rest-card">
                             <div class="timer-display" id="rest-display">05:00</div>
                             <div class="timer-controls">
                                 <button class="timer-btn primary" onclick="toggleTimer('rest')"><i data-lucide="play" id="rest-icon"></i></button>
@@ -114,8 +125,8 @@
 
             <!-- Analysis Page -->
             <div id="analysis-page" class="page">
-                <section class="stats-section">
-                    <div class="daily-analysis-card">
+                <section class="stats-section staggered-item">
+                    <div class="daily-analysis-card glass-shimmer">
                         <div class="card-header">DAILY ANALYSIS</div>
                         <div class="stat-row">
                             <div class="stat-label">Overall Completion</div>
@@ -139,26 +150,17 @@
             <!-- Settings Page -->
             <div id="settings-page" class="page">
                 <section class="settings-section">
-                    <div class="settings-group">
+                    <div class="settings-group staggered-item glass-shimmer">
                         <h3>General</h3>
                         <div class="settings-item">
-                            <span>Appearance</span>
-                            <div class="theme-selector">
-                                <button class="theme-btn active" id="dark-theme-btn">
-                                    <i data-lucide="moon"></i> Dark
-                                </button>
-                                <button class="theme-btn" id="light-theme-btn">
-                                    <i data-lucide="sun"></i> Light
-                                </button>
-                            </div>
+                            <span>Notifications</span>
+                            <div class="toggle active"></div>
                         </div>
-
                     </div>
 
-                    <!-- Developer Credits -->
-                    <div class="settings-group developer-credits">
+                    <div class="settings-group developer-credits staggered-item">
                         <h3>System Architect</h3>
-                        <div class="credit-card glass-morphism">
+                        <div class="credit-card glass-shimmer">
                             <div class="credit-text">El-Hefnawy Technology</div>
                             <div class="credit-badge">Lead Developer</div>
                         </div>
@@ -169,11 +171,12 @@
 
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
-            <div class="nav-item active">
+            <div class="nav-indicator" id="nav-indicator"></div>
+            <div class="nav-item">
                 <i data-lucide="home"></i>
                 <span class="nav-label">Home</span>
             </div>
-            <div class="nav-item">
+            <div class="nav-item active">
                 <i data-lucide="list-todo"></i>
                 <span class="nav-label">Task</span>
             </div>
@@ -193,6 +196,22 @@
     </div>
 
     <script>
+        // Initialize Loading Matrix
+        function initMatrix() {
+            const grid = document.getElementById('matrix-grid');
+            for(let i=0; i<25; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'matrix-dot';
+                dot.style.animationDelay = `${Math.random() * 2}s`;
+                grid.appendChild(dot);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }, 2000);
+        }
+        initMatrix();
+
         // Initialize Lucide Icons
         lucide.createIcons();
 
@@ -328,23 +347,7 @@
             }
         });
 
-        // Theme Switching
-        const darkBtn = document.getElementById('dark-theme-btn');
-        const lightBtn = document.getElementById('light-theme-btn');
 
-        darkBtn.addEventListener('click', () => {
-            document.documentElement.classList.remove('light-mode');
-            darkBtn.classList.add('active');
-            lightBtn.classList.remove('active');
-            lucide.createIcons();
-        });
-
-        lightBtn.addEventListener('click', () => {
-            document.documentElement.classList.add('light-mode');
-            lightBtn.classList.add('active');
-            darkBtn.classList.remove('active');
-            lucide.createIcons();
-        });
 
         // Initialize progress
         updateProgress();
@@ -413,30 +416,116 @@
 
         generateCalendar();
 
-        // Navigation Switching
+        // Navigation Switching with Advanced Transitions
         const navItems = document.querySelectorAll('.nav-item');
         const pages = document.querySelectorAll('.page');
+        const indicator = document.getElementById('nav-indicator');
+        let isTransitioning = false;
+
+        function updateIndicator(target) {
+            const rect = target.getBoundingClientRect();
+            const navRect = document.querySelector('.bottom-nav').getBoundingClientRect();
+            indicator.style.width = `${rect.width}px`;
+            indicator.style.left = `${rect.left - navRect.left}px`;
+        }
+
+        // Initialize indicator position
+        window.addEventListener('load', () => {
+            const activeItem = document.querySelector('.nav-item.active');
+            if (activeItem) updateIndicator(activeItem);
+        });
+
+        window.addEventListener('resize', () => {
+            const activeItem = document.querySelector('.nav-item.active');
+            if (activeItem) updateIndicator(activeItem);
+        });
 
         navItems.forEach((item, index) => {
             item.addEventListener('click', () => {
-                // Update nav UI
+                if (isTransitioning || item.classList.contains('active')) return;
+                
+                isTransitioning = true;
+                const currentActivePage = document.querySelector('.page.active');
+                const targetPageId = item.querySelector('.nav-label').innerText.toLowerCase() + '-page';
+                const targetPage = document.getElementById(targetPageId);
+
+                // Step 1: Update UI & Start Ripple (Background Layer)
                 navItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
+                updateIndicator(item);
+                createTransitionRipple(item);
 
-                // Switch pages
-                const pageId = item.querySelector('.nav-label').innerText.toLowerCase() + '-page';
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === pageId) {
-                        page.classList.add('active');
-                    }
-                });
+                // Step 2: Blur & Fade Out Current Content (Mid Layer)
+                if (currentActivePage) {
+                    currentActivePage.classList.add('exiting');
+                    document.querySelector('.content-area').style.filter = 'blur(20px) brightness(1.5) saturate(1.5)';
+                    document.querySelector('.content-area').style.transform = 'scale(0.95)';
+                    document.querySelector('.content-area').style.transition = 'all 0.4s var(--curve-expo)';
+
+                    // Step 3: Wait for exit animation to complete
+                    setTimeout(() => {
+                        // Step 4: Swap Pages (Logic Layer)
+                        currentActivePage.classList.remove('active', 'exiting');
+                        targetPage.classList.add('active');
+                        
+                        // Step 5: Start Entrance Series (Foreground Layer)
+                        const items = targetPage.querySelectorAll('.staggered-item');
+                        items.forEach((el, i) => {
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateY(20px) scale(0.9)';
+                            el.style.animation = 'none';
+                            el.offsetHeight; // trigger reflow
+                            
+                            // Sequential delay for each item
+                            setTimeout(() => {
+                                el.style.transition = 'all 0.6s var(--curve-spring)';
+                                el.style.opacity = '1';
+                                el.style.transform = 'translateY(0) scale(1)';
+                            }, 50 * i);
+                        });
+
+                        // Step 6: Final Polish (Ambient Layer)
+                        setTimeout(() => {
+                            document.querySelector('.content-area').style.filter = 'blur(0) brightness(1) saturate(1)';
+                            document.querySelector('.content-area').style.transform = 'scale(1)';
+                            lucide.createIcons();
+                            
+                            setTimeout(() => { isTransitioning = false; }, 300);
+                        }, 100);
+                    }, 400); 
+                } else {
+                    targetPage.classList.add('active');
+                    isTransitioning = false;
+                }
                 
-                // Scroll to top on page change
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        function createTransitionRipple(targetElement) {
+            const ripple = document.createElement('div');
+            ripple.className = 'nav-transition-ripple';
+            const rect = targetElement.getBoundingClientRect();
+            ripple.style.left = `${rect.left + rect.width / 2}px`;
+            ripple.style.top = `${rect.top + rect.height / 2}px`;
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 800);
+        }
+
+        // Mouse/Tilt Parallax Effect for Glass Cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.status-card, .mini-card, .timer-card, .daily-analysis-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = (e.clientX - rect.left) / rect.width - 0.5;
+                const cardY = (e.clientY - rect.top) / rect.height - 0.5;
                 
-                // Re-run Lucide icons
-                lucide.createIcons();
+                if (Math.abs(cardX) < 1 && Math.abs(cardY) < 1) {
+                    card.style.transform = `perspective(1000px) rotateY(${cardX * 10}deg) rotateX(${-cardY * 10}deg) scale(1.02)`;
+                } else {
+                    card.style.transform = '';
+                }
             });
         });
 
