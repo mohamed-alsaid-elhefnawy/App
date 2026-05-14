@@ -27,6 +27,12 @@
     
     --blur-intensity: 24px;
     --dot-pattern: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    
+    /* Premium Nav Constants */
+    --nav-bg: rgba(10, 10, 10, 0.8);
+    --nav-border: rgba(255, 255, 255, 0.12);
+    --indicator-glow: rgba(0, 247, 255, 0.5);
+    --bloom-color: rgba(0, 247, 255, 0.3);
 }
 
 * {
@@ -301,14 +307,7 @@ header {
     border-color: var(--primary-cyan);
 }
 
-.profile-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid var(--accent-orange);
-    object-fit: cover;
-    box-shadow: 0 0 15px var(--orange-glow);
-}
+
 
 /* Main Status Card */
 .status-section {
@@ -638,16 +637,68 @@ header {
 }
 
 /* VisionOS Selection Pill */
+/* Premium VisionOS Indicator */
 .nav-indicator {
     position: absolute;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.1);
+    height: 52px;
+    background: linear-gradient(
+        180deg, 
+        rgba(255, 255, 255, 0.12) 0%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 28px;
-    box-shadow: 0 0 15px var(--accent-glow);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 26px;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        0 0 20px var(--indicator-glow),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transition: 
+        left 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+        width 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+        transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     pointer-events: none;
     z-index: 1;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: indicatorBreath 4s infinite ease-in-out;
+}
+
+@keyframes indicatorBreath {
+    0%, 100% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px var(--indicator-glow), inset 0 1px 1px rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 35px var(--primary-cyan), inset 0 1px 2px rgba(255, 255, 255, 0.3); }
+}
+
+/* Liquid Bloom Effect */
+.nav-indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, var(--bloom-color) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    filter: blur(15px);
+    z-index: -1;
+}
+
+/* Glass Reflection Shimmer */
+.nav-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 26px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    pointer-events: none;
 }
 
 .nav-item {
@@ -658,43 +709,56 @@ header {
     justify-content: center;
     color: var(--text-dim);
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     position: relative;
     height: 100%;
     z-index: 2;
     -webkit-tap-highlight-color: transparent;
+    gap: 4px;
+}
+
+.nav-item:active {
+    transform: scale(0.92);
+    opacity: 0.8;
 }
 
 .nav-item.active {
     color: var(--primary-cyan);
+    transform: translateY(-2px);
+}
+
+.nav-item.active:active {
+    transform: translateY(-2px) scale(0.92);
 }
 
 .nav-item i {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 6px;
-    stroke-width: 2.2px;
-    transition: all 0.4s var(--curve-expo);
+    width: 22px;
+    height: 22px;
+    stroke-width: 2px;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    filter: drop-shadow(0 0 5px transparent);
 }
 
 .nav-item.active i {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 10px var(--accent-glow));
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px var(--primary-cyan));
+    stroke-width: 2.5px;
 }
 
 .nav-label {
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    text-transform: capitalize;
-    opacity: 0.5;
-    transition: all 0.4s ease;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .nav-item.active .nav-label {
     opacity: 1;
     color: var(--primary-cyan);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+    text-shadow: 0 0 10px var(--bloom-color);
+    transform: scale(1.1);
 }
 
 /* Redundant static underlines removed in favor of fluid indicator */
